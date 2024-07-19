@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useClickAway } from "react-use";
 import data from "../../mock/data.json";
+import { Link, NavLink } from "react-router-dom";
 type Props = {};
 
 const SearchPart = (props: Props) => {
@@ -18,7 +19,7 @@ const SearchPart = (props: Props) => {
 
   useEffect(() => {
     if (query) {
-      const filteredResults = data.data.filter(item =>
+      const filteredResults = data.data.filter((item) =>
         item.toString().toLowerCase().includes(query.toLowerCase())
       );
       setResults(filteredResults);
@@ -29,15 +30,8 @@ const SearchPart = (props: Props) => {
 
   const displayedResults = showAll ? results : results.slice(0, 3);
 
-
   return (
     <div className="flex justify-center flex-col items-center">
-      <div className="h-[54px] w-[740px] py-3 px-6">
-        <h2 className="font-inter text-[32px] leading-[36px] text-[#090A0A] font-bold">
-          Find in records
-        </h2>
-      </div>
-
       <div className="flex justify-center items-center">
         <div
           ref={ref}
@@ -68,19 +62,18 @@ const SearchPart = (props: Props) => {
               onFocus={() => setFocus(true)}
               value={query}
               onChange={(e) => {
-                setQuery(e.target.value)
-                query && setShowAll(false)
+                setQuery(e.target.value);
+                query && setShowAll(false);
               }}
             />
             {query && focus && (
               <button
                 type="button"
                 onClick={() => {
-                  setQuery("")
-                  setShowAll(false)}
-                }
-
-                className="right-3 w-[22px] h-[22px] flex justify-center items-center rounded-full bg-[#1d9bf0] text-black min-w-[22px] absolute top-1/2 -translate-y-1/2"
+                  setQuery("");
+                  setShowAll(false);
+                }}
+                className="right-3 w-[22px] h-[22px] flex justify-center items-center rounded-full  text-black min-w-[22px] absolute top-1/2 -translate-y-1/2"
               >
                 <svg viewBox="0 0 15 15" width={10} height={10}>
                   <path
@@ -95,25 +88,33 @@ const SearchPart = (props: Props) => {
                 {displayedResults.length > 0 ? (
                   <ul>
                     {displayedResults.map((result, index) => (
-                      <li key={index} className="p-2">
-                        {result[1]}
-                        <li>
-                          <p>{`${result[6]}, ${result[7]}`}</p>
+                      <div className="flex items-center ms-[34.5px] my-6">
+                        <img
+                          className="w-[24px] h-[24px] me-2"
+                          src="./assets/Avatar.png"
+                          alt=""
+                        />
+                        <li key={index} className=" text-start">
+                          <p className="font-inter text-[16px] leading-[20px] text-[#090A0A] font-normal">
+                            {result[1]}
+                          </p>
+
+                          <p className="font-inter text-[14px] leading-[16px] text-[#72777A] font-normal">{`${result[6]}, ${result[7]}`}</p>
                         </li>
-                      </li>
-                      
+                      </div>
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-[#71767b] pt-5 p-3 leading-5">No results found</p>
+                  <p className="text-[#71767b] pt-5 p-3 leading-5">
+                    No results found
+                  </p>
                 )}
                 {results.length > 3 && !showAll && (
-                  <button
-                    className="text-blue-500 p-2"
-                    onClick={() => setShowAll(true)}
-                  >
-                    Show More
-                  </button>
+                  <NavLink to={"/result"} onClick={() => setShowAll(true)}>
+                    <p className="mt-[13px] mb-3 font-inter text-[16px] leading-[24px] text-[#090A0A] font-bold">
+                      Show More...
+                    </p>
+                  </NavLink>
                 )}
               </div>
             )}
