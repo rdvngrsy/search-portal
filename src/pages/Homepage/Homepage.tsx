@@ -1,11 +1,9 @@
-import React from "react";
 import SearchPart from "../../components/SearchPart/SearchPart";
 import { NavLink } from "react-router-dom";
 import Carousel from "../../components/Carousel/Carousel";
 
-type Props = {};
 
-const Homepage = (props: Props) => {
+const Homepage = () => {
   return (
     <div className="">
       <div className="relative h-[110px] w-full">

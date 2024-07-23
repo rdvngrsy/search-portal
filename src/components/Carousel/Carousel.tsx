@@ -1,4 +1,3 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/16/solid";
 import { useState } from "react";
 
 type NewsItem = {

@@ -1,9 +1,8 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import "./OverlayLoader.css"
-type Props = {};
 
-const OverlayLoader = (props: Props) => {
+
+const OverlayLoader = () => {
   const loadingState = useSelector((state: any) => state.loading);
   //console.log(loadingState);
 

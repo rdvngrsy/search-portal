@@ -26,10 +26,6 @@ axiosInstance.interceptors.response.use(
     store.dispatch(decreaseRequestCount());
     return response
   },
-  error => {
-    store.dispatch(decreaseRequestCount());
-
-  },
 )
 
 

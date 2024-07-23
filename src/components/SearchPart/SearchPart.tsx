@@ -4,9 +4,9 @@ import data from "../../mock/data.json";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setSearchData } from "../../store/slices/searchDataSlice";
-type Props = {};
 
-const SearchPart = (props: Props) => {
+
+const SearchPart = () => {
   const [focus, setFocus] = useState(false);
   const [query, setQuery] = useState("");
 

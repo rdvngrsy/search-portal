@@ -10,7 +10,6 @@ function App() {
         <div className="z-50 h-screen">
           <OverlayLoader />
           <Dashboard />
-          {/* <Footer></Footer> */}
         </div>
       </div>
     </>
