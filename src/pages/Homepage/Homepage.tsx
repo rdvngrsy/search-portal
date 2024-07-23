@@ -1,5 +1,6 @@
 import React from "react";
 import SearchPart from "../../components/SearchPart/SearchPart";
+import { NavLink } from "react-router-dom";
 
 type Props = {};
 
@@ -7,9 +8,9 @@ const Homepage = (props: Props) => {
   return (
     <div className="">
       <div className="relative h-[110px] w-full">
-        <button className="absolute rounded-xl w-[197.16px] h-[46px] bg-[#204080] top-16 right-[62.84px] font-roboto text-[18px] leading-[21.09px] text-white font-bold">
+        <NavLink to={"/add-link-page"} className="flex justify-center items-center absolute rounded-xl w-[197.16px] h-[46px]  bg-[#204080] top-16 right-[62.84px] font-roboto text-[18px] leading-[21.09px] text-white font-bold duration-200 ease-in hover:bg-[#4F75C2]">
           Add new record
-        </button>
+        </NavLink>
       </div>
 
       <div className="mt-[73px] h-full w-full flex items-center flex-col">

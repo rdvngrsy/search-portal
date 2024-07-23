@@ -1,36 +1,40 @@
-import { ErrorMessage, Field, getIn, useField } from "formik";
-import { useState } from "react";
-import "./FormikInput.css";
+import React, { useState } from "react";
+import { useField, ErrorMessage } from "formik";
+import { Field } from "formik";
 
 type Props = {
   name: string;
   label: string;
-  type?: string;
   placeholder?: string;
+  type?: string;
 };
 
 const FormikInput = (props: Props) => {
-  const [field, meta, helpers] = useField(props.name); // İlgili formikde ilgili input elemanından bilgi toplar.
-
-  let [show, setShow] = useState(false);
+  const [field, meta] = useField(props.name);
+  const [show, setShow] = useState(false);
 
   const toggleShow = () => {
     setShow((show) => !show);
   };
+
+  const errorClass = meta.touched && meta.error ? "text-[#FF0000] opacity-70" : "text-[#686868]";
+  const errorBorder = meta.touched && meta.error ? "border-[#FF0000]" : "border-[#484848]";
+  const errorPlaceholder = meta.touched && meta.error ? "placeholder:text-[#FF0000] placeholder:opacity-50" : "placeholder:text-[#646464]";
+
   return (
     <>
-      <div className="mb-3">
+      <div className="mb-[29px]">
         <div className="relative flex flex-col">
-          <div className="text-black font-bold inline-block pb-2">
+          <div className={`font-roboto text-[18px] leading-[21px] font-bold inline-block pb-2 ${errorClass}`}>
             {props.label}
           </div>
-          {props.type === "password" ? ( // props.type "password" ise, şifre göster/gizle butonunu ve ilgili mantığı ekleyin
+          {props.type === "password" ? (
             <>
               <Field
-                type={show ? "text" : "password"} // type özelliğini show değişkenine göre belirleyin
-                className={`mb-2 w-full text-sm  px-4 py-3 bg-white focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-delta-green-1000 ${
+                type={show ? "text" : "password"}
+                className={`mb-2 w-full text-sm px-4 py-3 bg-white focus:bg-gray-100 border ${errorBorder} rounded-lg focus:outline-none ${
                   meta.touched && meta.error ? "is-invalid" : ""
-                }`}
+                } ${errorPlaceholder}`}
                 {...field}
                 name={props.name}
                 aria-describedby="title"
@@ -38,10 +42,8 @@ const FormikInput = (props: Props) => {
               />
               <div className="flex items-center absolute inset-y-0 right-0 mr-3 mt-6 text-sm leading-5">
                 <svg
-                  onClick={toggleShow} // onClick fonksiyonunu toggleShow olarak belirleyin
-                  className={
-                    show ? "hidden" : "block h-4 text-purple-800"
-                  }
+                  onClick={toggleShow}
+                  className={show ? "hidden" : "block h-4 text-purple-800"}
                   viewBox="0 0 576 512"
                 >
                   <path
@@ -51,10 +53,8 @@ const FormikInput = (props: Props) => {
                 </svg>
 
                 <svg
-                  onClick={toggleShow} // onClick fonksiyonunu toggleShow olarak belirleyin
-                  className={
-                    show ? "block h-4 text-purple-800" : "hidden "
-                  }
+                  onClick={toggleShow}
+                  className={show ? "block h-4 text-purple-800" : "hidden"}
                   viewBox="0 0 640 512"
                 >
                   <path
@@ -67,7 +67,7 @@ const FormikInput = (props: Props) => {
           ) : (
             <Field
               type={props.type || "text"}
-              className={`mb-2 w-full text-sm  px-4 py-3 bg-white focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-delta-green-1000 ${
+              className={`mb-2 w-full font-roboto text-[16px] leading-[21px] font-medium px-4 py-3 bg-white border ${errorBorder} rounded-xl placeholder:font-roboto placeholder:text-[18px] placeholder:leading-[21px] placeholder:opacity-50 placeholder:font-bold ${errorPlaceholder} ${
                 meta.touched && meta.error ? "is-invalid" : ""
               }`}
               {...field}
@@ -78,7 +78,7 @@ const FormikInput = (props: Props) => {
           )}
         </div>
         <ErrorMessage name={props.name}>
-          {(message) => <span className="text-red-600">{message}</span>}
+          {(message) => <span className="text-[#FF0000] opacity-50 font-roboto text-[18px] leading-[21px] font-bold">{message}</span>}
         </ErrorMessage>
       </div>
     </>

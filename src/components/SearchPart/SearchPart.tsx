@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useClickAway } from "react-use";
 import data from "../../mock/data.json";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setSearchData } from "../../store/slices/searchDataSlice";
 type Props = {};
 
 const SearchPart = (props: Props) => {
@@ -13,13 +15,16 @@ const SearchPart = (props: Props) => {
 
   const ref = useRef<HTMLDivElement>(null);
 
+  const dispatch = useDispatch();
+  
+
   useClickAway(ref, () => {
     setFocus(false);
   });
 
   useEffect(() => {
     if (query) {
-      const filteredResults = data.data.filter((item) =>
+      const filteredResults = data.data.filter((item:any) =>
         item.toString().toLowerCase().includes(query.toLowerCase())
       );
       setResults(filteredResults);
@@ -29,7 +34,7 @@ const SearchPart = (props: Props) => {
   }, [query]);
 
   const displayedResults = showAll ? results : results.slice(0, 3);
-
+  
   return (
     <div className="flex justify-center flex-col items-center">
       <div className="flex justify-center items-center">
@@ -37,7 +42,7 @@ const SearchPart = (props: Props) => {
           ref={ref}
           className="ms-[120px] mt-[6.14px] h-[53px] w-[646px] min-h-8 flex items-center "
         >
-          <label className="h-[48px] bg-white w-full rounded-lg group relative border border-[#204080] focus-within:bg-white focus-within:border-[#204080] focus-within:border-2">
+          <label className="h-[48px] bg-white w-full rounded-lg group relative border-2 border-[#204080] ">
             <div className="w-[48px] h-full flex justify-center items-center absolute top-0 left-0 pointer-events-none">
               <svg
                 height={24}
@@ -63,6 +68,7 @@ const SearchPart = (props: Props) => {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
+                dispatch(setSearchData(e.target.value));
                 query && setShowAll(false);
               }}
             />
@@ -88,19 +94,19 @@ const SearchPart = (props: Props) => {
                 {displayedResults.length > 0 ? (
                   <ul>
                     {displayedResults.map((result, index) => (
-                      <div className="flex items-center ms-[34.5px] my-6">
+                      <div key={index} className="flex items-center ms-[34.5px] my-6">
                         <img
                           className="w-[24px] h-[24px] me-2"
                           src="./assets/Avatar.png"
                           alt=""
                         />
-                        <li key={index} className=" text-start">
+                        <div className="flex flex-col items-start">
                           <p className="font-inter text-[16px] leading-[20px] text-[#090A0A] font-normal">
                             {result[1]}
                           </p>
 
                           <p className="font-inter text-[14px] leading-[16px] text-[#72777A] font-normal">{`${result[6]}, ${result[7]}`}</p>
-                        </li>
+                        </div>
                       </div>
                     ))}
                   </ul>
@@ -121,9 +127,9 @@ const SearchPart = (props: Props) => {
           </label>
         </div>
 
-        <button className="ms-[11.4px] mt-[6.14px] rounded-xl w-[138px] h-[46px] bg-[#204080] font-roboto text-[18px] leading-[21.09px] text-white font-bold">
+        <NavLink to={"/result"} className="flex justify-center items-center ms-[11.4px] mt-[6.14px] rounded-xl w-[138px] h-[46px] bg-[#204080] font-roboto text-[18px] leading-[21.09px] text-white font-bold duration-200 ease-in hover:bg-[#4F75C2]">
           Search
-        </button>
+        </NavLink>
       </div>
     </div>
   );
