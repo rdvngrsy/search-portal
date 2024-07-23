@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import FormikInput from "../../components/FormikInput/FormikInput";
 import { Form, Formik } from "formik";
 import { object, string } from "yup";
 import Toast from "../../components/Toast/Toast";
 
-type Props = {};
 
-const AddLinkPage = (props: Props) => {
-    const [show, setShow] = useState(false);
+
+const AddLinkPage = () => {
+
   const initialValues = {
     nameSurname: "",
     country: "",
@@ -65,7 +65,7 @@ const AddLinkPage = (props: Props) => {
       <div className="mt-[65px] ms-[225px] w-[590px] relative">
         <Formik
           initialValues={initialValues}
-          onSubmit={(values, { setStatus, resetForm }) => {
+          onSubmit={(values, { setStatus }) => {
             localStorage.setItem("formValues", JSON.stringify(values));
             setStatus({
               type: "success",
@@ -76,7 +76,7 @@ const AddLinkPage = (props: Props) => {
           validationSchema={validationSchema}
           enableReinitialize={true}
         >
-          {({ errors, touched, status, setStatus }) => (
+          {({ errors, status, setStatus }) => (
             <Form className="w-full">
               <div className="">
                 <FormikInput
