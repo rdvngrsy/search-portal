@@ -63,7 +63,7 @@ const SearchPart = (props: Props) => {
             <input
               type="text"
               className="w-full h-full bg-transparent rounded-full outline-none pl-[48px] text-[16px] placeholder-opacity-50 placeholder:text-[#71767b] font-inter leading-4 font-normal"
-              placeholder="Ara"
+              placeholder="Search"
               onFocus={() => setFocus(true)}
               value={query}
               onChange={(e) => {
