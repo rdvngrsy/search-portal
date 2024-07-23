@@ -6,9 +6,9 @@ import CustomDropdown from "../../components/CustomDropdown/CustomDropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchData } from "../../store/slices/searchDataSlice";
 import Pagination from "../../components/Pagination/Pagination";
-type Props = {};
 
-const Result = (props: Props) => {
+
+const Result = () => {
   const [focus, setFocus] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<(string | number)[][]>([]);
